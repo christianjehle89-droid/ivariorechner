@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RATIONAL iVario Pro – Amortisationsrechner | B&G Backen & Garen</title>
+<meta name="description" content="Berechnen Sie in 60 Sekunden, wie schnell sich der RATIONAL iVario Pro in Ihrer Küche amortisiert. Kostenlos & unverbindlich.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #D11317;
+    --navy: #202E34;
+    --navy-light: #2e3f4a;
+    --green: #3B6D11;
+    --green-light: #EAF3DE;
+    --gray-bg: #F7F7F5;
+    --gray-border: #E2E2DE;
+    --text: #1a1a1a;
+    --text-muted: #666;
+    --white: #ffffff;
+    --radius: 10px;
+    --radius-lg: 16px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: var(--gray-bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 0;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    border-bottom: 3px solid var(--red);
+  }
+  .logo {
+    display: flex;
+    flex-direction: column;
+  }
+  .logo-main {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.3px;
+  }
+  .logo-sub {
+    font-size: 12px;
+    color: #88a0aa;
+    letter-spacing: 0.5px;
+  }
+  .partner-badge {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #ccc;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  .hero {
+    padding: 48px 32px 52px;
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--red); }
+  .hero p {
+    font-size: 17px;
+    color: #99b0ba;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* KARTEN */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: var(--radius-lg);
+    padding: 28px 28px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 16px;
+    background: var(--red);
+    border-radius: 2px;
+  }
+
+  /* SLIDER ROWS */
+  .slider-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+  .slider-row:last-child { margin-bottom: 0; }
+  .slider-label {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  input[type=range] {
+    width: 100%;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--gray-border);
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--navy);
+    cursor: pointer;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px var(--gray-border);
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--navy);
+    cursor: pointer;
+    border: 3px solid #fff;
+  }
+  .slider-val {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    text-align: right;
+    min-width: 90px;
+    white-space: nowrap;
+  }
+
+  /* KPI GRID */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .kpi {
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+  .kpi-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+  .kpi-val { font-size: 22px; font-weight: 700; color: var(--green); }
+  .kpi-sub { font-size: 11px; color: #aaa; margin-top: 2px; }
+
+  /* ERGEBNIS */
+  .result-table { width: 100%; border-collapse: collapse; }
+  .result-table tr td { padding: 10px 0; border-bottom: 1px solid var(--gray-border); font-size: 14px; }
+  .result-table tr:last-child td { border-bottom: none; }
+  .result-table td:last-child { text-align: right; font-weight: 600; color: var(--navy); }
+  .result-table td:first-child { color: var(--text-muted); }
+
+  .amort-box {
+    background: var(--green-light);
+    border-left: 4px solid var(--green);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .amort-label { font-size: 15px; font-weight: 600; color: var(--green); }
+  .amort-val { font-size: 28px; font-weight: 700; color: var(--green); }
+
+  /* CHART */
+  .chart-container {
+    position: relative;
+    width: 100%;
+    height: 280px;
+  }
+  .chart-legend {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+  }
+
+  /* CROSS-SELL */
+  .system-box {
+    background: var(--navy);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 600px) { .system-box { grid-template-columns: 1fr; } }
+  .sys-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+  .sys-badge {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .badge-red { background: var(--red); color: #fff; }
+  .badge-amber { background: #BA7517; color: #fff; }
+  .sys-name { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .sys-desc { font-size: 13px; color: #88a0aa; line-height: 1.5; }
+  .sys-features { margin-top: 10px; }
+  .sys-feat { font-size: 13px; color: #ccc; padding: 3px 0; }
+  .sys-feat::before { content: '→ '; color: var(--red); }
+  .sys-connector {
+    grid-column: 1 / -1;
+    text-align: center;
+    background: rgba(209,19,23,0.12);
+    border: 1px solid rgba(209,19,23,0.3);
+    border-radius: var(--radius);
+    padding: 14px;
+    color: #ffaaaa;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* CTA */
+  .cta-box {
+    background: var(--red);
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .cta-box h2 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .cta-box p { font-size: 15px; color: rgba(255,255,255,0.8); margin-bottom: 24px; }
+  .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: #fff;
+    color: var(--red);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 13px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-secondary {
+    background: transparent;
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 13px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    border: 2px solid rgba(255,255,255,0.5);
+    transition: border-color 0.15s;
+  }
+  .btn-secondary:hover { border-color: #fff; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    border-top: 3px solid var(--red);
+    padding: 28px 32px;
+    text-align: center;
+  }
+  footer p { font-size: 13px; color: #88a0aa; }
+  footer strong { color: #ccc; }
+
+  /* HINWEIS */
+  .hinweis {
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  @media (max-width: 600px) {
+    .header-top { padding: 14px 16px; }
+    .hero { padding: 32px 16px 36px; }
+    main { padding: 24px 12px 60px; }
+    .card { padding: 20px 16px; }
+    .slider-row { grid-template-columns: 1fr; gap: 6px; }
+    .slider-val { text-align: left; }
+    .amort-box { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="logo">
+      <span class="logo-main">B&amp;G Backen &amp; Garen</span>
+      <span class="logo-sub">Technik &amp; Service GmbH · Thalgau</span>
+    </div>
+    <span class="partner-badge">RATIONAL Servicepartner</span>
+  </div>
+  <div class="hero">
+    <span class="hero-eyebrow">Kostenloser Rechner</span>
+    <h1>Wie schnell amortisiert sich<br>der <span>iVario Pro</span> bei Ihnen?</h1>
+    <p>Sie haben bereits den iCombi Pro. Berechnen Sie jetzt in 60 Sekunden, was das komplette RATIONAL-System für Ihre Küche bedeutet.</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- SLIDER CARD -->
+  <div class="card">
+    <div class="card-title">Ihre Küche – Parameter eingeben</div>
+
+    <div class="slider-row">
+      <div>
+        <div class="slider-label">Essen pro Tag</div>
+        <input type="range" min="50" max="1000" step="10" value="300" id="essen">
+      </div>
+      <div class="slider-val" id="out-essen">300</div>
+    </div>
+
+    <div class="slider-row">
+      <div>
+        <div class="slider-label">Investition iVario Pro (EUR)</div>
+        <input type="range" min="15000" max="60000" step="500" value="35000" id="preis">
+      </div>
+      <div class="slider-val" id="out-preis">35.000 €</div>
+    </div>
+
+    <div class="slider-row">
+      <div>
+        <div class="slider-label">Energiekosten Altgeräte (EUR / Jahr)</div>
+        <input type="range" min="2000" max="20000" step="500" value="9000" id="energie">
+      </div>
+      <div class="slider-val" id="out-energie">9.000 €</div>
+    </div>
+
+    <div class="slider-row">
+      <div>
+        <div class="slider-label">Ersetzte Altgeräte (Kippkessel, Pfanne, Fritteuse …)</div>
+        <input type="range" min="1" max="4" step="1" value="3" id="geraete">
+      </div>
+      <div class="slider-val" id="out-geraete">3 Geräte</div>
+    </div>
+
+    <div class="slider-row">
+      <div>
+        <div class="slider-label">Eingesparte Personalstunden / Tag</div>
+        <input type="range" min="0.25" max="4" step="0.25" value="1" id="personal">
+      </div>
+      <div class="slider-val" id="out-personal">1,0 h</div>
+    </div>
+
+    <div class="slider-row">
+      <div>
+        <div class="slider-label">Lohnkosten (EUR / Stunde)</div>
+        <input type="range" min="15" max="40" step="1" value="22" id="lohn">
+      </div>
+      <div class="slider-val" id="out-lohn">22 €</div>
+    </div>
+
+    <div class="slider-row">
+      <div>
+        <div class="slider-label">Wartungskosten Altgeräte (EUR / Jahr)</div>
+        <input type="range" min="500" max="8000" step="250" value="3000" id="wartung">
+      </div>
+      <div class="slider-val" id="out-wartung">3.000 €</div>
+    </div>
+  </div>
+
+  <!-- KPI GRID -->
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Einsparung Energie / Jahr</div>
+      <div class="kpi-val" id="kpi-energie">—</div>
+      <div class="kpi-sub">38 % Reduktion</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Einsparung Personal / Jahr</div>
+      <div class="kpi-val" id="kpi-personal">—</div>
+      <div class="kpi-sub">250 Arbeitstage</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Einsparung Wartung / Jahr</div>
+      <div class="kpi-val" id="kpi-wartung">—</div>
+      <div class="kpi-sub">65 % weniger</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Gesamteinsparung / Jahr</div>
+      <div class="kpi-val" id="kpi-gesamt">—</div>
+      <div class="kpi-sub">vor iCare-Abzug</div>
+    </div>
+  </div>
+
+  <!-- ERGEBNIS -->
+  <div class="card">
+    <div class="card-title">Ihre Amortisationsrechnung</div>
+    <table class="result-table">
+      <tr><td>Investition iVario Pro</td><td id="r-invest">—</td></tr>
+      <tr><td>Jährliche Gesamteinsparung</td><td id="r-save">—</td></tr>
+      <tr><td>iCare Servicevertrag (est. 5,5 %)</td><td id="r-icare">—</td></tr>
+      <tr><td>Nettoeinsparung nach iCare</td><td id="r-netto">—</td></tr>
+    </table>
+    <div class="amort-box">
+      <span class="amort-label">Ihr iVario Pro amortisiert sich in</span>
+      <span class="amort-val" id="r-amort">—</span>
+    </div>
+    <p class="hinweis">Richtwert auf Basis von RATIONAL-Erfahrungswerten. Individuelle Kalkulation auf Anfrage.</p>
+  </div>
+
+  <!-- CHART -->
+  <div class="card">
+    <div class="card-title">Kumulierte Einsparung vs. Investition (5 Jahre)</div>
+    <div class="chart-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#D11317;"></div>Investition</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#3B6D11;"></div>Kumulierte Einsparung</div>
+    </div>
+    <div class="chart-container">
+      <canvas id="roiChart" role="img" aria-label="Linienchart: Break-even-Punkt des iVario Pro über 5 Jahre">Kumulierte Einsparung überschreitet Investitionskosten beim Amortisationszeitpunkt.</canvas>
+    </div>
+  </div>
+
+  <!-- SYSTEM CROSS-SELL -->
+  <div class="system-box">
+    <div class="sys-card">
+      <span class="sys-badge badge-red">Ihr aktuelles Gerät</span>
+      <div class="sys-name">iCombi Pro</div>
+      <div class="sys-desc">Kombidämpfer der Spitzenklasse – Braten, Backen, Dämpfen, Regenerieren.</div>
+      <div class="sys-features">
+        <div class="sys-feat">KI-gestützte Garautomatik</div>
+        <div class="sys-feat">Connected Cooking</div>
+        <div class="sys-feat">iCareSystem Reinigung</div>
+      </div>
+    </div>
+    <div class="sys-card">
+      <span class="sys-badge badge-amber">Die Ergänzung</span>
+      <div class="sys-name">iVario Pro</div>
+      <div class="sys-desc">Multifunktions-Kochsystem – ersetzt Kessel, Pfanne &amp; Fritteuse in einem.</div>
+      <div class="sys-features">
+        <div class="sys-feat">Kochen, Schmoren, Frittieren</div>
+        <div class="sys-feat">iZoneControl – Zonen einzeln</div>
+        <div class="sys-feat">Druckgaren für kurze Zeiten</div>
+      </div>
+    </div>
+    <div class="sys-connector">
+      iProductionManager koordiniert beide Geräte automatisch — alle Speisen fertig zum gleichen Zeitpunkt
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <h2>Interesse? Wir rechnen es gemeinsam durch.</h2>
+    <p>Kostenlose Bedarfsanalyse in Ihrer Küche – mit echten Zahlen, keine Durchschnittswerte.</p>
+    <div class="cta-buttons">
+      <a href="https://backenundgaren.at/kontakt/" class="btn-primary">Jetzt anfragen</a>
+      <a href="tel:+436642828752" class="btn-secondary">Direkt anrufen</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p><strong>B&amp;G Backen &amp; Garen Technik &amp; Service GmbH</strong> · Thalgau, Salzburg<br>
+  Autorisierter RATIONAL Sales- &amp; Servicepartner · Österreich &amp; Bayern</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+const fmt = v => Math.round(v).toLocaleString('de-AT') + '\u00a0€';
+const fmtAmort = v => {
+  const r = Math.round(v * 10) / 10;
+  if (r <= 1/12) return 'unter 1 Monat';
+  if (r < 1) return Math.round(r * 12) + ' Monaten';
+  if (r < 1.1) return '1 Jahr';
+  return r.toFixed(1).replace('.', ',') + ' Jahren';
+};
+
+let chart = null;
+
+function calc() {
+  const essen    = +document.getElementById('essen').value;
+  const preis    = +document.getElementById('preis').value;
+  const energie  = +document.getElementById('energie').value;
+  const geraete  = +document.getElementById('geraete').value;
+  const personal = +document.getElementById('personal').value;
+  const lohn     = +document.getElementById('lohn').value;
+  const wartung  = +document.getElementById('wartung').value;
+
+  document.getElementById('out-essen').textContent    = essen;
+  document.getElementById('out-preis').textContent    = Math.round(preis).toLocaleString('de-AT') + '\u00a0€';
+  document.getElementById('out-energie').textContent  = Math.round(energie).toLocaleString('de-AT') + '\u00a0€';
+  document.getElementById('out-geraete').textContent  = geraete + (geraete === 1 ? ' Gerät' : ' Geräte');
+  document.getElementById('out-personal').textContent = personal.toFixed(2).replace(/\.?0+$/, '').replace('.', ',') + '\u00a0h';
+  document.getElementById('out-lohn').textContent     = lohn + '\u00a0€';
+  document.getElementById('out-wartung').textContent  = Math.round(wartung).toLocaleString('de-AT') + '\u00a0€';
+
+  const eSave = Math.round(energie * 0.38);
+  const pSave = Math.round(personal * lohn * 250);
+  const wSave = Math.round(wartung * 0.65);
+  const total = eSave + pSave + wSave;
+  const icare = Math.round(preis * 0.055);
+  const netto = total - icare;
+  const amort = preis / netto;
+
+  document.getElementById('kpi-energie').textContent  = fmt(eSave);
+  document.getElementById('kpi-personal').textContent = fmt(pSave);
+  document.getElementById('kpi-wartung').textContent  = fmt(wSave);
+  document.getElementById('kpi-gesamt').textContent   = fmt(total);
+
+  document.getElementById('r-invest').textContent = fmt(preis);
+  document.getElementById('r-save').textContent   = fmt(total);
+  document.getElementById('r-icare').textContent  = '− ' + fmt(icare);
+  document.getElementById('r-netto').textContent  = fmt(netto);
+  document.getElementById('r-amort').textContent  = fmtAmort(amort);
+
+  renderChart(preis, netto);
+}
+
+function renderChart(invest, netto) {
+  const labels = ['Heute', 'Jahr 1', 'Jahr 2', 'Jahr 3', 'Jahr 4', 'Jahr 5'];
+  const invData = [0, invest, invest, invest, invest, invest];
+  const savData = [0, netto, netto*2, netto*3, netto*4, netto*5];
+
+  if (chart) { chart.destroy(); }
+  chart = new Chart(document.getElementById('roiChart'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Investition',
+          data: invData,
+          borderColor: '#D11317',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          borderDash: [8, 4],
+          pointBackgroundColor: '#D11317',
+          pointRadius: 4,
+          tension: 0
+        },
+        {
+          label: 'Kumulierte Einsparung',
+          data: savData,
+          borderColor: '#3B6D11',
+          backgroundColor: 'rgba(59,109,17,0.06)',
+          borderWidth: 2.5,
+          pointBackgroundColor: '#3B6D11',
+          pointRadius: 4,
+          fill: true,
+          tension: 0
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ' ' + ctx.dataset.label + ': ' + Math.round(ctx.parsed.y).toLocaleString('de-AT') + ' €'
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 13 }, color: '#888' }
+        },
+        y: {
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          ticks: {
+            font: { size: 12 },
+            color: '#888',
+            callback: v => Math.round(v / 1000) + 'k €'
+          }
+        }
+      }
+    }
+  });
+}
+
+['essen','preis','energie','geraete','personal','lohn','wartung'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calc);
+});
+
+calc();
+</script>
+</body>
+</html>
